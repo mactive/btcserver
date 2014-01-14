@@ -1,29 +1,29 @@
 {
-	"news":[
-		{
-			"title":"BTC News 001",
-			"date":"1316566788",
-			"summary":"In Part 1 of this tutorial series looking at iOS 7 best practices, you set up your project with Cocoapods, added views to the controller and laid them out, and finally built models to reflect the weather data you will be fetching."
-		},
-		{
-			"title":"BTC News 002",
-			"date":"1316563788",
-			"summary":"Series looking at iOS 7 best practices, you set up your project with Cocoapods, added views to the controller and laid them out, and finally built models to reflect the weather data you will be fetching."
-		},
-		{
-			"title":"BTC News 003",
-			"date":"1316567788",
-			"summary":"You set up your project with Cocoapods, added views to the controller and laid them out, and finally built models to reflect the weather data you will be fetching."
-		},
-		{
-			"title":"BTC News 004",
-			"date":"1316569788",
-			"summary":"iOS 7 best practices, you set up your project with Cocoapods, added views to the controller and laid them out, and finally built models to reflect the weather data you will be fetching."
-		},
-		{
-			"title":"BTC News 005",
-			"date":"1326566788",
-			"summary":"Cocoapods, added views to the controller and laid them out, and finally built models to reflect the weather data you will be fetching."
-		}
-	]
+  "news": [
+    {
+      "title": "BTC News 001",
+      "date": "1316566788",
+      "summary": "In Part 1 of this tutorial series looking at iOS 7 best practices, you set up your project with Cocoapods, added views to the controller and laid them out, and finally built models to reflect the weather data you will be fetching."
+    },
+    {
+      "title": "BTC News 002",
+      "date": "1316563788",
+      "summary": "Series looking at iOS 7 best practices, you set up your project with Cocoapods, added views to the controller and laid them out, and finally built models to reflect the weather data you will be fetching."
+    },
+    {
+      "title": "BTC News 003",
+      "date": "1316567788",
+      "summary": "You set up your project with Cocoapods, added views to the controller and laid them out, and finally built models to reflect the weather data you will be fetching."
+    },
+    {
+      "title": "BTC News 004",
+      "date": "1316569788",
+      "summary": "iOS 7 best practices, you set up your project with Cocoapods, added views to the controller and laid them out, and finally built models to reflect the weather data you will be fetching."
+    },
+    {
+      "title": "BTC News 005",
+      "date": "1326566788",
+      "summary": "Cocoapods, added views to the controller and laid them out, and finally built models to reflect the weather data you will be fetching."
+    }
+  ]
 }
