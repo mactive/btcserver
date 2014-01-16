@@ -33,6 +33,7 @@ http://bitcoinwisdom.com/bitcoin/difficulty
 ####文章来源中英
 中文
 
+* <http://yibite.com/news/>
 * <http://8btc.com>
 * <http://www.bitecoin.com>
 * <http://www.btc798.com/>
