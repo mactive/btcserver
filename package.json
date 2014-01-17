@@ -3,6 +3,7 @@
   "description": "server for btcnow",
   "author": "mactive <mactive@gmail.com>",
   "dependencies": {
-    "crawler": "*"
+    "crawler": "0.2.5",
+    "mysql":"2.0.1"
   }
 }
