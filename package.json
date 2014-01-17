@@ -1,0 +1,8 @@
+{
+  "name": "btcServer",
+  "description": "server for btcnow",
+  "author": "mactive <mactive@gmail.com>",
+  "dependencies": {
+    "crawler": "*"
+  }
+}
