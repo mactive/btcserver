@@ -16,6 +16,42 @@ function writeFs(urls){
 	});
 }
 
+/*
+ * mongodb
+*/
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
+// url: linkDiv.href,
+// title: linkDiv.innerHTML,
+// time: timeDiv.innerHTML,
+// origin: originDiv.innerHTML,
+// intro: introDiv.innerHTML,
+// no: "page"+times+"-"+index
+
+var News = mongoose.model('News', { 
+	url: String, 
+	title: String,
+	time: Date,
+	origin: String,
+	intro: String,
+	no: String
+});
+
+function saveMongoDB(urls){
+	urls.forEach(function(item){
+		var oneNew = new News( item );
+		oneNew.save(function (err) {
+		  if (err) // ...
+		  console.log('insert error');
+		});
+	});
+
+}
+
+
+
 // Queue just one URL, with default callback
 var tasks = [];
 var max = 20;
@@ -24,7 +60,7 @@ for (var i = 1; i <= max; i++) {
 		"maxConnections": 1,
 		"uri": "http://yibite.com/news/index.php?page="+i,
 		"callback": function(error,result,$) {
-			// urls = [];
+			urls = [];
 
 			$('.li-holder').each( function(index, div){
 				var timeDiv = $(div).find('.tags > span.time')[0];
@@ -45,7 +81,8 @@ for (var i = 1; i <= max; i++) {
 
 		    times += 1;
 		    console.log('queue call '+times+' times');
-	    	writeFs(urls);
+	    	// writeFs(urls);
+	    	saveMongoDB(urls);
 		}
 	});
 };
@@ -53,6 +90,9 @@ for (var i = 1; i <= max; i++) {
 console.dir(tasks);
 
 c.queue(tasks);
+
+
+
 
 
 // TODO crawler pagination url
