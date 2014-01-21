@@ -21,23 +21,19 @@ function writeFs(urls){
 */
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+var Schema = mongoose.Schema;
+mongoose.connect('mongodb://localhost/bitcoin');
 
-// url: linkDiv.href,
-// title: linkDiv.innerHTML,
-// time: timeDiv.innerHTML,
-// origin: originDiv.innerHTML,
-// intro: introDiv.innerHTML,
-// no: "page"+times+"-"+index
-
-var News = mongoose.model('News', { 
-	url: String, 
-	title: String,
-	time: Date,
-	origin: String,
-	intro: String,
-	no: String
+var newsSchema = Schema({
+  title   	: String,
+  url 	  	: String,
+  time 		: Date,
+  origin 	: String,
+  intro 	: String,
+  no 		: String
 });
+
+var News = mongoose.model('News', newsSchema);
 
 function saveMongoDB(urls){
 	urls.forEach(function(item){
@@ -47,10 +43,7 @@ function saveMongoDB(urls){
 		  console.log('insert error');
 		});
 	});
-
 }
-
-
 
 // Queue just one URL, with default callback
 var tasks = [];
