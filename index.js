@@ -16,9 +16,10 @@ server = http.createServer(function(req, res){
 
     // Extract query.
     var query = parts.query;
-
     // Extract path name.
     var pathname = parts.pathname;
+    // remove /btnnow
+    pathname = pathname.replace('/btcnow','');
 
     var filePath = folderPath + pathname + '.json';
 
@@ -37,7 +38,7 @@ server = http.createServer(function(req, res){
         });
 
     }else{
-        
+
         fs.readFile(filePath, encode, function(err, file) {
             if(err){
                 res.writeHead(404, {'Content-Type': 'text/plain'});
