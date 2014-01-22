@@ -29,7 +29,6 @@ server = http.createServer(function(req, res){
         // give them them limit skip
         // return json 
         var skip = query.skip;
-        console.log();
         New.getNewsBySkip(skip, function(err, news){
             res.writeHead(200, {'Content-Type':'application/json'});
             res.write(JSON.stringify(news));
@@ -37,7 +36,24 @@ server = http.createServer(function(req, res){
             return;
         });
 
-    }else{
+    }else if(pathname.match(new RegExp('^/ticker'))){
+        http.get('http://d.bitjin.com/ticker',function(resGet){
+            // console.dir(res);
+            resGet.on('data', function (chunk) {
+
+                res.writeHead(200, {'Content-Type':'application/json'});
+                res.write(chunk);
+                res.end();
+                return; 
+            });
+            
+        }).on('error', function(e) {
+            console.log("Got error: " + e.message);
+        });
+
+        
+    }
+    else{
 
         fs.readFile(filePath, encode, function(err, file) {
             if(err){
