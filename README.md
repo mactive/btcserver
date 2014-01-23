@@ -6,9 +6,17 @@ Server for btcnow
 
 ###TODO
 
-1. get total GHash/s  
-2. crawl news list
-3. 
+1. 左侧拖动 更改数据库 排序，并呈现到右侧(刷新机制)
+2. 左侧点击 更改数据库显示属性
+3. 中间展示 stats 接口3个数据
+4. 文章列表下拉刷新
+5. ios7 优先 ios6 样式匹配
+6. 少两个 icon 图片  57 114
+
+
+
+* 1 排序不好做可以先放放
+
 
 
 ####API LIST
