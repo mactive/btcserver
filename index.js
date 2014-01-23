@@ -49,9 +49,21 @@ server = http.createServer(function(req, res){
             
         }).on('error', function(e) {
             console.log("Got error: " + e.message);
-        });
+        });        
+    }else if(pathname.match(new RegExp('^/stats'))){
+        http.get('http://blockchain.info/stats?format=json',function(resGet){
+            // console.dir(res);
+            resGet.on('data', function (chunk) {
 
-        
+                res.writeHead(200, {'Content-Type':'application/json'});
+                res.write(chunk);
+                res.end();
+                return; 
+            });
+            
+        }).on('error', function(e) {
+            console.log("Got error: " + e.message);
+        });
     }
     else{
 
