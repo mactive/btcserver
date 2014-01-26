@@ -33,7 +33,12 @@ var newsSchema = Schema({
   no 		: String
 });
 
+
 var News = mongoose.model('News', newsSchema);
+
+News.remove({}, function(err) { 
+   console.log('News collection removed');
+});
 
 function saveMongoDB(urls){
 	urls.forEach(function(item){
@@ -47,7 +52,7 @@ function saveMongoDB(urls){
 
 // Queue just one URL, with default callback
 var tasks = [];
-var max = 90;
+var max = 40;
 for (var i = 1; i <= max; i++) {
 	tasks.push({
 		"maxConnections": 1,
@@ -83,9 +88,6 @@ for (var i = 1; i <= max; i++) {
 console.dir(tasks);
 
 c.queue(tasks);
-
-
-
 
 
 // TODO crawler pagination url
