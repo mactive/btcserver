@@ -81,9 +81,6 @@ for (var i = 1; i <= max; i++) {
 		    console.log('queue call '+times+' times');
 	    	// writeFs(urls);
 	    	saveMongoDB(urls);
-	    	if (i == 41) {
-	    		process.exit(0);
-	    	};
 		}
 	});
 };
