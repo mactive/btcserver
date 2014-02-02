@@ -21,6 +21,7 @@ exports.getNewsBySkip = function (skip, callback){
 	// get
 	News
 	.aggregate()
+	.sort({ no: 'asc'})
 	.skip(skipNumber)
 	.limit(20)
 	.exec(function (err, items) {
