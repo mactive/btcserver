@@ -37,19 +37,26 @@ server = http.createServer(function(req, res){
         });
 
     }else if(pathname.match(new RegExp('^/ticker'))){
-        http.get('http://d.bitjin.com/ticker',function(resGet){
-            // console.dir(res);
-            resGet.on('data', function (chunk) {
 
-                res.writeHead(200, {'Content-Type':'application/json'});
-                res.write(chunk);
-                res.end();
-                return; 
+        var req = http.get('http://www.hao123.com/bitcoin/bitcurrent', function(resGet) {
+            resGet.setEncoding('utf8');
+        });
+
+        req.on('response', function (response) {
+
+            var data = "";
+            response.on('data', function (chunk) {
+                data += chunk;
             });
-            
-        }).on('error', function(e) {
-            console.log("Got error: " + e.message);
-        });        
+
+            response.on('end', function(){
+                res.writeHead(200, {'Content-Type':'application/json'});
+                res.write(data);
+                res.end();
+            })
+
+        });
+       
     }else if(pathname.match(new RegExp('^/stats'))){
         http.get('http://blockchain.info/stats?format=json',function(resGet){
             // console.dir(res);
