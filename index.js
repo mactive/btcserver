@@ -58,7 +58,7 @@ server = http.createServer(function(req, res){
         });
        
     }else if(pathname.match(new RegExp('^/stats'))){
-        http.get('http://blockchain.info/stats?format=json',function(resGet){
+        http.get('http://www.btc123.com/e/interfaces/tickers.js?type=info',function(resGet){
             // console.dir(res);
             resGet.on('data', function (chunk) {
 
