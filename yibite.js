@@ -55,8 +55,6 @@ function saveMongoDB(urls){
 			    console.log("====");
 			    // console.log(_content);
 			    item.content = _content;
-
-
 			    var nameList = item.url.split("aid=");
 				var aid = nameList[1];
 				item.aid = aid;

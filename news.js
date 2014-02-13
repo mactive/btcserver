@@ -9,7 +9,9 @@ var newsSchema = Schema({
   time 		: Date,
   origin 	: String,
   intro 	: String,
-  no 		: String
+  no 		: String,
+  aid		: Number,
+  content	: String
 });
 
 var News = mongoose.model('News', newsSchema);
@@ -30,6 +32,26 @@ exports.getNewsBySkip = function (skip, callback){
 			console.dir(err);
 		}
 		console.log("News Skip"+skip);
+		if (items) {
+			callback(err, items);
+		};
+	});
+}
+
+exports.getContent= function (aid, callback){
+
+	var aid = parseInt(aid);
+	console.log("aid: "+ aid);
+	// get
+	
+	News
+	.findOne({'aid': aid })
+	.exec(function (err, items) {
+		// body..
+		if(err){
+			console.dir(err);
+		}
+		console.log("News aid:"+aid);
 		if (items) {
 			callback(err, items);
 		};

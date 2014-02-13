@@ -9,10 +9,8 @@ var server,
     folderPath = "static",
     url = require('url'),
     encode = "utf8";
-var New = require('./news');
-var Content = require('./content');
-
-var swig  = require('swig');
+var New     = require('./news');
+var swig    = require('swig');
 
 
 server = http.createServer(function(req, res){
@@ -40,23 +38,28 @@ server = http.createServer(function(req, res){
             return;
         });
 
-    }else if (pathname.match(new RegExp('^/content'))) {
+    }
+    else if (pathname.match(new RegExp('^/content'))) {
         // give them them limit skip
         // return json 
         var aid = query.aid;
-        Content.getContent(aid, function(err, item){
-            res.writeHead(200, {'Content-Type':'text/html'});
-            var tpl = swig.renderFile(folderPath+'/content_template.html', {
-                title: item.title,
-                content: item.content
-            });
+        New.getContent(aid, function(err, item){
 
+            res.writeHead(200, {'Content-Type':'text/html'});
+
+            var tpl = swig.renderFile(__dirname + "/" +folderPath+'/content_template.html', {
+                title: item.title,
+                origin: item.origin,
+                time: item.time.toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+                content: function mystuff() { return item.content; }
+            });
+            console.log(item.content);
             res.write(tpl);
             res.end();
             return;
         });
-
-    }else if(pathname.match(new RegExp('^/ticker'))){
+    }
+    else if(pathname.match(new RegExp('^/ticker'))){
 
         var req = http.get('http://www.hao123.com/bitcoin/bitcurrent', function(resGet) {
             resGet.setEncoding('utf8');
