@@ -10,6 +10,10 @@ var server,
     url = require('url'),
     encode = "utf8";
 var New = require('./news');
+var Content = require('./content');
+
+var swig  = require('swig');
+
 
 server = http.createServer(function(req, res){
     var parts = url.parse(req.url, true);
@@ -32,6 +36,22 @@ server = http.createServer(function(req, res){
         New.getNewsBySkip(skip, function(err, news){
             res.writeHead(200, {'Content-Type':'application/json'});
             res.write(JSON.stringify(news));
+            res.end();
+            return;
+        });
+
+    }else if (pathname.match(new RegExp('^/content'))) {
+        // give them them limit skip
+        // return json 
+        var aid = query.aid;
+        Content.getContent(aid, function(err, item){
+            res.writeHead(200, {'Content-Type':'text/html'});
+            var tpl = swig.renderFile(folderPath+'/content_template.html', {
+                title: item.title,
+                content: item.content
+            });
+
+            res.write(tpl);
             res.end();
             return;
         });

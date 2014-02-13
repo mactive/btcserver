@@ -30,7 +30,9 @@ var newsSchema = Schema({
   time 		: Date,
   origin 	: String,
   intro 	: String,
-  no 		: String
+  no 		: String,
+  aid		: Number,
+  content	: String
 });
 
 
@@ -42,17 +44,42 @@ News.remove({}, function(err) {
 
 function saveMongoDB(urls){
 	urls.forEach(function(item){
-		var oneNew = new News( item );
-		oneNew.save(function (err) {
-		  if (err) // ...
-		  console.log('insert error');
-		});
+		c.queue([{
+			"uri": item.url,
+			"jQuery": true,
+
+			// The global callback won't be called
+			"callback":function(error,result,$) {
+
+			    var _content = $('.art-content')[0].innerHTML;
+			    console.log("====");
+			    // console.log(_content);
+			    item.content = _content;
+
+
+			    var nameList = item.url.split("aid=");
+				var aid = nameList[1];
+				item.aid = aid;
+
+				item.url = "http://127.0.0.1:8866/btcnow/content?aid="+aid
+
+				console.log(item.url);
+			    
+			    // get content
+				var oneNew = new News( item );
+				oneNew.save(function (err) {
+				  if (err) // ...
+				  console.log('insert error');
+				});
+
+			}
+		}]);
 	});
 }
 
 // Queue just one URL, with default callback
 var tasks = [];
-var max = 40;
+var max = 1;
 for (var i = 1; i <= max; i++) {
 	tasks.push({
 		"maxConnections": 1,

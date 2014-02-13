@@ -5,6 +5,7 @@
   "dependencies": {
     "crawler": "*",
     "mongodb": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "swig": "1.3.2"
   }
 }
