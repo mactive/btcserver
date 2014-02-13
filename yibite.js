@@ -38,46 +38,77 @@ var newsSchema = Schema({
 
 var News = mongoose.model('News', newsSchema);
 
-News.remove({}, function(err) { 
-   console.log('News collection removed');
-});
+// News.remove({}, function(err) { 
+//    console.log('News collection removed');
+// });
 
-function saveMongoDB(urls){
-	urls.forEach(function(item){
-		c.queue([{
-			"uri": item.url,
-			"jQuery": true,
+function getContent(aid, callback){
 
-			// The global callback won't be called
-			"callback":function(error,result,$) {
-
-			    var _content = $('.art-content')[0].innerHTML;
-			    console.log("====");
-			    // console.log(_content);
-			    item.content = _content;
-			    var nameList = item.url.split("aid=");
-				var aid = nameList[1];
-				item.aid = aid;
-
-				item.url = "http://127.0.0.1:8866/btcnow/content?aid="+aid
-
-				console.log(item.url);
-			    
-			    // get content
-				var oneNew = new News( item );
-				oneNew.save(function (err) {
-				  if (err) // ...
-				  console.log('insert error');
-				});
-
-			}
-		}]);
+	var aid = parseInt(aid);
+	
+	News
+	.findOne({'aid': aid })
+	.exec(function (err, item) {
+		// body..
+		callback(err, item);
 	});
 }
 
+function saveMongoDB(urls){
+	urls.forEach(function(item){
+
+		var nameList = item.url.split("aid=");
+		var aid = nameList[1];
+
+		getContent(aid, function(err, result){
+			console.log("aid:" + aid);
+			// console.log(item);
+
+			if (result != null) {
+				console.log("has this "+result.aid)
+			}else{
+				console.log("queue");
+
+				/// queue single page
+				c.queue([{
+					"uri": item.url,
+					"jQuery": true,
+
+					// The global callback won't be called
+					"callback":function(error,result,$) {
+
+					    var _content = $('.art-content')[0].innerHTML;
+					    console.log("====");
+					    // console.log(_content);
+					    item.content = _content;
+						item.aid = aid;
+
+
+						item.url = "http://www.ydkcar.com/btcnow/content?aid="+aid
+
+						console.log(item.url);
+					    
+					    // get content
+						var oneNew = new News( item );
+						oneNew.save(function (err) {
+						  if (err) // ...
+						  console.log('insert error');
+						});
+
+					}
+				}]);
+				/// queue single page
+
+			}
+		});
+	});
+}
+
+
+
 // Queue just one URL, with default callback
 var tasks = [];
-var max = 1;
+var max = 20;
 for (var i = 1; i <= max; i++) {
 	tasks.push({
 		"maxConnections": 1,

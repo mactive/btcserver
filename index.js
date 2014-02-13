@@ -53,7 +53,6 @@ server = http.createServer(function(req, res){
                 time: item.time.toISOString().replace(/T/, ' ').replace(/\..+/, ''),
                 content: function mystuff() { return item.content; }
             });
-            console.log(item.content);
             res.write(tpl);
             res.end();
             return;
