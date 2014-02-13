@@ -25,7 +25,7 @@ server = http.createServer(function(req, res){
 
     var filePath = folderPath + pathname + '.json';
 
-    console.log(pathname);
+    console.log(pathname+query);
 
     if (pathname.match(new RegExp('^/news'))) {
         // give them them limit skip

@@ -22,7 +22,7 @@ exports.getNewsBySkip = function (skip, callback){
 	console.log("skipNumber: "+ skipNumber);
 	// get
 	News
-	.aggregate()
+	.aggregate({ $project: { title: 1 , url:1, time:1, origin:1, intro:1 }})
 	.sort({ time: 'desc'})
 	.skip(skipNumber)
 	.limit(20)
