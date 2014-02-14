@@ -52,7 +52,7 @@ function saveMongoDB(urls){
 
 // Queue just one URL, with default callback
 var tasks = [];
-var max = 40;
+var max = 5;
 for (var i = 1; i <= max; i++) {
 	tasks.push({
 		"maxConnections": 1,
