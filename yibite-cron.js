@@ -2,6 +2,18 @@ var Crawler = require("crawler").Crawler;
 var urls = [];
 var fs= require('fs');
 var times  = 0;
+var cronJob = require('cron').CronJob;
+var job = new cronJob({
+  cronTime: '00 30 09 * * 1-7',
+  onTick: function() {
+    makelove();
+  },
+  start: true,
+  timeZone: "Asia/Beijing"
+});
+
+job.start();
+
 
 var c = new Crawler({
 	"maxConnections": 1,	
@@ -105,46 +117,46 @@ function saveMongoDB(urls){
 }
 
 
+function makelove(){
+	// Queue just one URL, with default callback
+	var tasks = [];
+	var max = 20;
+	for (var i = 1; i <= max; i++) {
+		tasks.push({
+			"maxConnections": 1,
+			"uri": "http://yibite.com/news/index.php?page="+i,
+			"callback": function(error,result,$) {
+				urls = [];
 
-// Queue just one URL, with default callback
-var tasks = [];
-var max = 5;
-for (var i = 1; i <= max; i++) {
-	tasks.push({
-		"maxConnections": 1,
-		"uri": "http://yibite.com/news/index.php?page="+i,
-		"callback": function(error,result,$) {
-			urls = [];
+				$('.li-holder').each( function(index, div){
+					var timeDiv = $(div).find('.tags > span.time')[0];
+					var linkDiv = $(div).find('.right-intro > a.art-myTitle')[0];
+					var originDiv = $(div).find('.tags > a.author')[0];
+					var introDiv = $(div).find('.right-intro > span.intro')[0];
 
-			$('.li-holder').each( function(index, div){
-				var timeDiv = $(div).find('.tags > span.time')[0];
-				var linkDiv = $(div).find('.right-intro > a.art-myTitle')[0];
-				var originDiv = $(div).find('.tags > a.author')[0];
-				var introDiv = $(div).find('.right-intro > span.intro')[0];
+					urls.push({
+			        	url: linkDiv.href,
+			        	title: linkDiv.innerHTML,
+			        	time: timeDiv.innerHTML,
+			        	origin: originDiv.innerHTML,
+			        	intro: introDiv.innerHTML,
+			        	no: "page"+times+"-"+index
+			        });
+					console.log("page"+times+"-"+index);
+				});
 
-				urls.push({
-		        	url: linkDiv.href,
-		        	title: linkDiv.innerHTML,
-		        	time: timeDiv.innerHTML,
-		        	origin: originDiv.innerHTML,
-		        	intro: introDiv.innerHTML,
-		        	no: "page"+times+"-"+index
-		        });
-				console.log("page"+times+"-"+index);
-			});
+			    times += 1;
+			    console.log('queue call '+times+' times');
+		    	// writeFs(urls);
+		    	saveMongoDB(urls);
+			}
+		});
+	};
 
-		    times += 1;
-		    console.log('queue call '+times+' times');
-	    	// writeFs(urls);
-	    	saveMongoDB(urls);
-		}
-	});
-};
+	console.dir(tasks);
 
-console.dir(tasks);
-
-c.queue(tasks);
-
+	c.queue(tasks);
+}
 
 // TODO crawler pagination url
 // TODO	insert the data
