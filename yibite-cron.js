@@ -9,7 +9,7 @@ var job = new cronJob({
     makelove();
   },
   start: true,
-  timeZone: "Asia/Beijing"
+  timeZone: "Asia/Chongqing"
 });
 
 job.start();
