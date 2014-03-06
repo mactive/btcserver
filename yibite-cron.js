@@ -34,7 +34,7 @@ function writeFs(urls){
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-mongoose.connect('mongodb://localhost/bitcoin');
+mongoose.connect('mongodb://mactive:mengqian@localhost/bitcoin');
 
 var newsSchema = Schema({
   title   	: String,
