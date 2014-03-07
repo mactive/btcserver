@@ -4,7 +4,8 @@ var fs= require('fs');
 var times  = 0;
 var cronJob = require('cron').CronJob;
 var job = new cronJob({
-  cronTime: '00 30 09 * * 1-7',
+  // cronTime: '00 30 09 * * 1-7',
+  cronTime: '0 0 */2 * * *', //every 2 hours
   onTick: function() {
     makelove();
   },
@@ -120,7 +121,7 @@ function saveMongoDB(urls){
 function makelove(){
 	// Queue just one URL, with default callback
 	var tasks = [];
-	var max = 20;
+	var max = 2;
 	for (var i = 1; i <= max; i++) {
 		tasks.push({
 			"maxConnections": 1,
