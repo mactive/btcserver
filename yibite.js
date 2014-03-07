@@ -105,10 +105,10 @@ function saveMongoDB(urls){
 }
 
 
-
+var first_value = process.argv[2]
 // Queue just one URL, with default callback
 var tasks = [];
-var max = 5;
+var max = first_value;
 for (var i = 1; i <= max; i++) {
 	tasks.push({
 		"maxConnections": 1,
