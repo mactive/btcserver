@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>{{title}}</title>
+	<link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.0/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://cdn.staticfile.org/jquery/2.0.0/jquery.min.js"></script>
+	<style type="text/css">
+		.font11px{font-size: 11px;}
+	</style>
+	<script type="text/javascript">
+		String.prototype.getValue = function(parm) {
+		    var reg = new RegExp("(^|&)" + parm + "=([^&]*)(&|$)");
+		    var r = this.substr(this.indexOf("\?") + 1).match(reg);
+		    if (r != null) return unescape(r[2]);
+		    return null;
+		}
+		$( document ).ready(function() {
+		    var urlString = window.location.href;
+		    $.ajax({
+		    	url: urlString.getValue('json_addr')
+		    }).done(function(data){
+		    	alert("done");
+		    });
+		});
+	</script>
+</head>
+<body>
+	<div class="col-md-12" style="padding:20px;">
+		<nav>
+			<h3>Wukongtv</h3>
+			<kbd class="font11px">新闻来源</kbd>
+		</nav>
+		
+		<hr>
+
+		<div class="content">
+			ahhahah
+		</div>
+	</div>
+</body>
+</html>

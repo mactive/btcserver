@@ -121,7 +121,7 @@ function saveMongoDB(urls){
 function makelove(){
 	// Queue just one URL, with default callback
 	var tasks = [];
-	var max = 2;
+	var max = 1;
 	for (var i = 1; i <= max; i++) {
 		tasks.push({
 			"maxConnections": 1,
