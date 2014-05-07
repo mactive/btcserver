@@ -8,6 +8,8 @@
     "mongoose": "*",
     "swig": "1.3.2",
     "cron": "1.0.3",
-    "time":"*"
+    "time":"*",
+    "sqlite3":"*",
+    "lazy":"*"
   }
 }
